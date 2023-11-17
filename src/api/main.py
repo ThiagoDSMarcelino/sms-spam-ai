@@ -15,10 +15,11 @@ def check_email():
     data = jsonify({'data': json_data['data']})
     
     model = joblib.load('src\data\model.sav')
+    encoder = joblib.load(encode_path)
     
-    sla = model.predict(data)
+    predict = model.predict(data)
     
-    return sla
+    return encoder.inverse_transform(predict)
 
 if __name__ == '__main__':
     app.run(debug=True)
